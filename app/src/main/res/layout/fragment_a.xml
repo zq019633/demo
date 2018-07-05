@@ -1,27 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:id="@+id/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/mToolbarStyle"
+        app:contentScrim="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            app:layout_collapseMode="parallax" />
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_collapseMode="pin"
+
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        <!--android:layout_gravity="bottom"-->
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tbTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:tabBackground="@color/white"
             app:tabIndicatorColor="@color/tb"
             app:tabIndicatorHeight="2dp"
-            app:tabTextColor="#707070"
             app:tabMode="scrollable"
-            app:tabBackground="@color/white"
             app:tabSelectedTextColor="@color/tb"
-            app:tabTextAppearance="@style/TabLayoutTextStyle" />
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabTextColor="#707070" />
+    </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
 
        <com.ciweek.demo.ViewPager_Tablayout.NoAnimationViewPager
            android:id="@+id/vp"
+           app:layout_behavior="@string/appbar_scrolling_view_behavior"
            android:layout_width="match_parent"
            android:layout_height="match_parent">
        </com.ciweek.demo.ViewPager_Tablayout.NoAnimationViewPager>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout >

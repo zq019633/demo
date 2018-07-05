@@ -2,19 +2,17 @@ package com.ciweek.demo.ViewPager_Tablayout;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ciweek.demo.R;
+import com.ciweek.demo.ViewPager_Tablayout.javaBean.Film;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -25,19 +23,24 @@ import com.youth.banner.loader.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class xHotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnBannerListener {
-    private final List<String> list;
+public class xHotAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder> implements OnBannerListener {
+    private final List<Film> list;
     private final Context context;
     private static final int HEAD_VIEW = 0;//头布局
     private static final int BODY_VIEW = 1;//内容布局
+    private final boolean isUpdate;
     private ArrayList<String> list_path;
     private ArrayList<String> list_title;
+    private int UPDATA = 1;
 
-    public xHotAdapter(Context context, List<String> list) {
-        this.context=context;
-        this.list=list;
+    public xHotAdapter(Context context, List<Film> list, boolean isUpdate) {
+        this.context = context;
+        this.list = list;
+        this.isUpdate = isUpdate;
         initBanner();
+
     }
+
 
     @NonNull
     @Override
@@ -45,32 +48,32 @@ public class xHotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         LayoutInflater mInflater = LayoutInflater.from(context);
         View view = null;
         ViewHolder holder = null;
-        if(HEAD_VIEW==viewType){
-            view =mInflater.inflate(R.layout.banner, parent,false);
-             holder =new HeadViewHolder(view);
+        if (HEAD_VIEW == viewType) {
+            view = mInflater.inflate(R.layout.item_banner, parent, false);
+            holder = new HeadViewHolder(view);
             return holder;
         }
-//
-        if(BODY_VIEW==viewType){
-             view =mInflater.inflate(R.layout.item, parent,false);
-             holder=new BodyViewHolder(view);
+
+        if (BODY_VIEW == viewType) {
+            view = mInflater.inflate(R.layout.item, parent, false);
+            holder = new BodyViewHolder(view);
             return holder;
         }
-       return null;
+        return null;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(holder instanceof HeadViewHolder){
+        if (holder instanceof HeadViewHolder) {
             ((HeadViewHolder) holder).banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
             //设置图片加载器，图片加载器在下方
             ((HeadViewHolder) holder).banner.setImageLoader(new MyLoader());
             //设置图片网址或地址的集合
-            ((HeadViewHolder) holder).banner.setImages(list);
+            ((HeadViewHolder) holder).banner.setImages(list_path);
             //设置轮播的动画效果，内含多种特效，可点入方法内查找后内逐一体验
             ((HeadViewHolder) holder).banner.setBannerAnimation(Transformer.Tablet);
             //设置轮播图的标题集合
-//            ((HeadViewHolder) holder).banner.setBannerTitles(list_title);
+            ((HeadViewHolder) holder).banner.setBannerTitles(list_title);
             //设置轮播间隔时间
             ((HeadViewHolder) holder).banner.setDelayTime(3000);
             //设置是否为自动轮播，默认是“是”。
@@ -78,24 +81,25 @@ public class xHotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             //设置指示器的位置，小点点，左中右。
             ((HeadViewHolder) holder).banner.setIndicatorGravity(BannerConfig.CENTER)
                     //以上内容都可写成链式布局，这是轮播图的监听。比较重要。方法在下面。
-//                    .setOnBannerListener(this)
+                    .setOnBannerListener(this)
                     //必须最后调用的方法，启动轮播图。
                     .start();
 
 
-
         }
 
-        if(holder instanceof BodyViewHolder){
-            ((BodyViewHolder) holder).textView.setText("nihao");
+        if (holder instanceof BodyViewHolder) {
+            ((BodyViewHolder) holder).textView.setText(list.get(position).getInfoName());
+
         }
     }
+
     //根据不同类型 返回 不同的布局
     @Override
     public int getItemViewType(int position) {
-        if(position==0){
+        if (position == 0) {
             return HEAD_VIEW;
-        }else{
+        } else {
             return BODY_VIEW;
         }
     }
@@ -103,11 +107,12 @@ public class xHotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public int getItemCount() {
-        return list.size()+1;
+
+        return list.size();
     }
-//
-    class HeadViewHolder extends RecyclerView.ViewHolder{
-         Banner banner;
+
+    class HeadViewHolder extends XRecyclerView.ViewHolder {
+        Banner banner;
 
 
         public HeadViewHolder(View itemView) {
@@ -118,7 +123,7 @@ public class xHotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
 
-    class BodyViewHolder extends RecyclerView.ViewHolder{
+    class BodyViewHolder extends XRecyclerView.ViewHolder {
 
         TextView textView;
 
@@ -129,8 +134,6 @@ public class xHotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         }
     }
-
-
 
 
     private void initBanner() {
@@ -151,7 +154,7 @@ public class xHotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public void OnBannerClick(int position) {
-        Log.i("tag", "你点了第"+position+"张轮播图");
+        Log.i("tag", "你点了第" + position + "张轮播图");
     }
 
     private class MyLoader extends ImageLoader {
@@ -160,9 +163,6 @@ public class xHotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             Glide.with(context).load((String) path).into(imageView);
         }
     }
-
-
-
 
 
 }

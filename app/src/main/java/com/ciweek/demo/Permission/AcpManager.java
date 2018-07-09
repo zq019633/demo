@@ -13,10 +13,6 @@ import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 
-
-
-
-
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;

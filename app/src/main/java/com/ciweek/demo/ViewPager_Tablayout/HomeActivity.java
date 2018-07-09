@@ -3,11 +3,9 @@ package com.ciweek.demo.ViewPager_Tablayout;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.design.widget.TabLayout;
-
-
 
 import com.ciweek.demo.R;
 import com.ciweek.demo.ViewPager_Tablayout.ButtonFragment.AFragment;
@@ -42,8 +40,8 @@ public class HomeActivity extends AppCompatActivity {
         title.add("购物车");
         title.add("我的");
 
-        fragments.add(new AFragment());
         fragments.add(new WtFragment());
+        fragments.add(new AFragment());
         fragments.add(new MsgFragment());
         fragments.add(new CarFragment());
         fragments.add(new MeFragment());

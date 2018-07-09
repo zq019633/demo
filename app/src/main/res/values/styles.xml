@@ -10,6 +10,7 @@
 
     <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">11sp</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -20,10 +21,5 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    <style name="mToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
-
-        <!-- 设置该属性解决Toolbar左边空白 -->
-        <item name="android:clipToPadding">true</item>
-    </style>
 
 </resources>

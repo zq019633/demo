@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,15 @@ public class AFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+//
+
+
+
+
+
+
+
         vpTop = view.findViewById(R.id.tbTop);
         viewPager=view.findViewById(R.id.vp);
         initData();
@@ -40,6 +50,13 @@ public class AFragment extends Fragment {
 
         viewPager.setAdapter(new AFragmentAdapter(getChildFragmentManager(),fragments,title));
         viewPager.setOffscreenPageLimit(2);
+
+
+
+        int count = viewPager.getAdapter().getCount();
+        Log.e("我是数量","count"+count);
+
+
         vpTop.setupWithViewPager(viewPager);
 
 

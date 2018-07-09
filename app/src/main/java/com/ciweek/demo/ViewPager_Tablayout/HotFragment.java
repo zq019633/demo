@@ -5,14 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -26,9 +24,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
-
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +35,7 @@ public class HotFragment extends Fragment {
     private List<String> list;
     private boolean isUpdate = false;
     private List<Film> userList;
+    private View mFakeStatusBar;
 
     @Nullable
     @Override
@@ -49,8 +45,12 @@ public class HotFragment extends Fragment {
         return view;
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+
+
 
 
 
